@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-sans: 'Manrope', sans-serif;
+
+  --color-shiver-ink: #0b1c2c;
+  --color-shiver-muted: #4a6274;
+  --color-shiver-surface: #f2f6f9;
+  --color-shiver-line: #c9d7e2;
+  --color-shiver-teal: #0e7c86;
+  --color-shiver-teal-deep: #0a5c64;
+  --color-shiver-blue: #1a6cff;
+  --color-shiver-foam: #e6f4f5;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: clip;
+    width: 100%;
+  }
+
+  body {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    font-family: var(--font-sans);
+    color: var(--color-shiver-ink);
+    background:
+      radial-gradient(ellipse 80% 50% at 10% -10%, #c8e8eb 0%, transparent 55%),
+      radial-gradient(ellipse 60% 40% at 90% 0%, #d4e2f0 0%, transparent 50%),
+      linear-gradient(180deg, #eef3f7 0%, #e4ecf2 100%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 6rem;
+    }
+
+    body {
+      background-attachment: fixed;
+    }
+  }
+
+  #root {
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  img,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@keyframes prize-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes prize-pulse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cta-idle-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(77, 163, 255, 0.35);
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    box-shadow: 0 0 18px 2px rgba(77, 163, 255, 0.28);
+    transform: translateY(-1px) scale(1.015);
+  }
+}
+
+.prize-card {
+  opacity: 0;
+}
+
+.prize-card.is-visible:not(.is-pulsing) {
+  animation: prize-enter 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.prize-card[data-place='3'].is-visible:not(.is-pulsing) {
+  animation-delay: 0ms;
+}
+
+.prize-card[data-place='2'].is-visible:not(.is-pulsing) {
+  animation-delay: 320ms;
+}
+
+.prize-card[data-place='1'].is-visible:not(.is-pulsing) {
+  animation-delay: 640ms;
+}
+
+.prize-card.is-pulsing {
+  opacity: 1;
+  animation: prize-pulse 2.6s ease-in-out infinite;
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-inview {
+  animation: reveal-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.reveal-delay-1.is-inview {
+  animation-delay: 90ms;
+}
+
+.reveal-delay-2.is-inview {
+  animation-delay: 180ms;
+}
+
+.reveal-delay-3.is-inview {
+  animation-delay: 270ms;
+}
+
+.reveal-delay-4.is-inview {
+  animation-delay: 360ms;
+}
+
+.reveal-delay-5.is-inview {
+  animation-delay: 450ms;
+}
+
+.reveal-delay-6.is-inview {
+  animation-delay: 540ms;
+}
+
+.reveal-delay-7.is-inview {
+  animation-delay: 630ms;
+}
+
+.hover-lift {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.hover-lift:hover,
+.hover-lift:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+.cta-idle-pulse {
+  animation: cta-idle-pulse 2.8s ease-in-out infinite;
+}
+
+.cta-idle-pulse:hover,
+.cta-idle-pulse:focus-visible {
+  animation: none;
+  transform: translateY(-2px);
+}
+
+.hero-parallax {
+  will-change: transform;
+  transform: translate3d(0, 0, 0) scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prize-card,
+  .prize-card.is-visible,
+  .prize-card.is-pulsing,
+  .reveal,
+  .reveal.is-inview {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+
+  .hover-lift,
+  .hover-lift:hover,
+  .hover-lift:focus-visible,
+  .cta-idle-pulse,
+  .cta-idle-pulse:hover,
+  .cta-idle-pulse:focus-visible,
+  .hero-parallax {
+    animation: none !important;
+    transform: none !important;
+    box-shadow: none;
+    transition: none !important;
+  }
+
+  header [class*='transition'],
+  header [class*='duration-'] {
+    transition: none !important;
+  }
+}
