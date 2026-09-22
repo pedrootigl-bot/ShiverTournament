@@ -32,7 +32,7 @@ export function useHeroParallax() {
 
       const progress = (viewH / 2 - (rect.top + rect.height / 2)) / viewH
       const offset = progress * 36
-      media.style.transform = `translate3d(0, ${offset}px, 0) scale(1.06)`
+      media.style.transform = `translate3d(0, ${offset}px, 0) scale(1.1)`
     }
 
     function onScroll() {

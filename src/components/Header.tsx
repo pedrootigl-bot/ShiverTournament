@@ -279,11 +279,11 @@ export function Header() {
 
       <div
         ref={setHeroSectionRef}
-        className="relative isolate min-h-[calc(100dvh-4rem)] overflow-x-clip sm:min-h-0"
+        className="relative isolate min-h-[calc(100dvh-4rem)] overflow-hidden sm:min-h-0"
       >
         <video
           ref={imageRef}
-          className="hero-parallax absolute inset-0 h-full w-full object-cover"
+          className="hero-parallax hero-media absolute inset-0 h-full w-full object-cover"
           autoPlay
           muted
           loop
@@ -293,14 +293,7 @@ export function Header() {
         >
           <source src="/hero/banner.mp4" type="video/mp4" />
         </video>
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(7,17,29,0.55) 0%, rgba(7,17,29,0.35) 45%, rgba(7,17,29,0.7) 100%)',
-          }}
-          aria-hidden="true"
-        />
+        <div className="hero-veil absolute inset-0" aria-hidden="true" />
         <SectionEdgeGradients top={false} bottom color="#050d16" />
 
         <div className="relative mx-auto flex min-h-[calc(100dvh-4rem)] max-w-6xl flex-col justify-center px-4 pb-16 pt-16 text-center sm:min-h-0 sm:block sm:px-6 sm:pb-20 sm:pt-20 md:pb-24 md:pt-28">
