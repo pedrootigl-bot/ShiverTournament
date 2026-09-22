@@ -11,20 +11,20 @@ function canUseParallax(): boolean {
 /** Parallax leve no Y do fundo do hero (desktop + motion ok). */
 export function useHeroParallax() {
   const sectionRef = useRef<HTMLDivElement | null>(null)
-  const imageRef = useRef<HTMLImageElement | null>(null)
+  const imageRef = useRef<HTMLImageElement | HTMLVideoElement | null>(null)
 
   useEffect(() => {
     if (!canUseParallax()) return
 
     const section = sectionRef.current
-    const image = imageRef.current
-    if (!section || !image) return
+    const media = imageRef.current
+    if (!section || !media) return
 
     let frame = 0
 
     function update() {
       frame = 0
-      if (!section || !image) return
+      if (!section || !media) return
 
       const rect = section.getBoundingClientRect()
       const viewH = window.innerHeight
@@ -32,7 +32,7 @@ export function useHeroParallax() {
 
       const progress = (viewH / 2 - (rect.top + rect.height / 2)) / viewH
       const offset = progress * 36
-      image.style.transform = `translate3d(0, ${offset}px, 0) scale(1.06)`
+      media.style.transform = `translate3d(0, ${offset}px, 0) scale(1.06)`
     }
 
     function onScroll() {
@@ -48,7 +48,7 @@ export function useHeroParallax() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
       if (frame) window.cancelAnimationFrame(frame)
-      image.style.transform = ''
+      media.style.transform = ''
     }
   }, [])
 

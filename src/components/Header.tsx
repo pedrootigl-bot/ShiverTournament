@@ -281,13 +281,18 @@ export function Header() {
         ref={setHeroSectionRef}
         className="relative isolate min-h-[calc(100dvh-4rem)] overflow-x-clip sm:min-h-0"
       >
-        <img
+        <video
           ref={imageRef}
-          src="/hero/tubaroes-bg.jpg"
-          alt=""
           className="hero-parallax absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/hero/tubaroes-bg.jpg"
           aria-hidden="true"
-        />
+        >
+          <source src="/hero/banner.mp4" type="video/mp4" />
+        </video>
         <div
           className="absolute inset-0"
           style={{
