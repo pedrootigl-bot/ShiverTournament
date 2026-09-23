@@ -9,15 +9,15 @@ function canUseParallax(): boolean {
 }
 
 /** Parallax leve no Y do fundo do hero (desktop + motion ok). */
-export function useHeroParallax() {
+export function useHeroParallax(revision: boolean | number = 0) {
   const sectionRef = useRef<HTMLDivElement | null>(null)
-  const imageRef = useRef<HTMLVideoElement | null>(null)
+  const mediaRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     if (!canUseParallax()) return
 
     const section = sectionRef.current
-    const media = imageRef.current
+    const media = mediaRef.current
     if (!section || !media) return
 
     let frame = 0
@@ -50,7 +50,7 @@ export function useHeroParallax() {
       if (frame) window.cancelAnimationFrame(frame)
       media.style.transform = ''
     }
-  }, [])
+  }, [revision])
 
-  return { sectionRef, imageRef }
+  return { sectionRef, mediaRef }
 }

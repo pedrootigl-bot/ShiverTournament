@@ -138,6 +138,8 @@ function TopRankCard({
           alt={`Foto de ${trader.name}`}
           width={44}
           height={44}
+          loading="lazy"
+          decoding="async"
           className="h-11 w-11 shrink-0 rounded-full object-cover"
           style={{
             boxShadow: `0 0 0 2px ${theme.border}55`,
@@ -173,6 +175,10 @@ export function Ranking() {
       <img
         src="/ranking/section-bg.jpg"
         alt=""
+        width={1400}
+        height={900}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover object-center"
         aria-hidden="true"
       />
@@ -356,6 +362,10 @@ export function Ranking() {
               <img
                 src={rankingSideImage}
                 alt="Destaque do ranking"
+                width={900}
+                height={1200}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-0 h-full w-full object-cover"
               />
             ) : (

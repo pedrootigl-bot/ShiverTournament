@@ -26,6 +26,10 @@ export function Footer() {
             <img
               src="/brand/shiver-logo.png"
               alt="Shiver Broker"
+              width={224}
+              height={56}
+              loading="lazy"
+              decoding="async"
               className="h-12 w-auto max-w-[12rem] object-contain sm:h-14 sm:max-w-[14rem] md:h-16 lg:h-20"
             />
           </Link>

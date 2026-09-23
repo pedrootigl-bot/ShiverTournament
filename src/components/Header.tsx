@@ -2,6 +2,7 @@ import { useEffect, useId, useState } from 'react'
 import { PARTICIPATE_URL } from '../constants'
 import { useHeroParallax } from '../hooks/useHeroParallax'
 import { useInView } from '../hooks/useInView'
+import { shouldAvoidHeavyMedia } from '../lib/network'
 import { SectionEdgeGradients } from './SectionEdgeGradients'
 
 const navLinks = [
@@ -69,15 +70,38 @@ const highlightCards = [
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [loadHeroVideo, setLoadHeroVideo] = useState(false)
   const menuId = useId()
   const { ref: heroRef, isInView } = useInView<HTMLDivElement>({ threshold: 0.05 })
   const { ref: highlightsRef, isInView: highlightsInView } = useInView<HTMLDivElement>({
     threshold: 0.25,
     rootMargin: '0px 0px -10% 0px',
   })
-  const { sectionRef, imageRef } = useHeroParallax()
+  const { sectionRef, mediaRef } = useHeroParallax(loadHeroVideo ? 1 : 0)
   const inview = isInView ? 'is-inview' : ''
   const highlightsVisible = highlightsInView ? 'is-inview' : ''
+
+  useEffect(() => {
+    const sync = () => setLoadHeroVideo(!shouldAvoidHeavyMedia())
+    sync()
+
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    motion.addEventListener('change', sync)
+
+    type NetworkConnection = {
+      addEventListener: (type: string, listener: () => void) => void
+      removeEventListener: (type: string, listener: () => void) => void
+    }
+    const connection = (
+      navigator as Navigator & { connection?: NetworkConnection }
+    ).connection
+    connection?.addEventListener('change', sync)
+
+    return () => {
+      motion.removeEventListener('change', sync)
+      connection?.removeEventListener('change', sync)
+    }
+  }, [])
 
   useEffect(() => {
     if (!menuOpen) return
@@ -106,7 +130,7 @@ export function Header() {
 
   return (
     <header>
-      <div className="fixed inset-x-0 top-0 z-50 overflow-x-clip border-b border-white/15 bg-[#07111d]/85 backdrop-blur-md">
+      <div className="fixed inset-x-0 top-0 z-50 overflow-x-clip border-b border-[#2a5a9a]/45 bg-[#0b1a2e]/92 backdrop-blur-md">
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-2 px-3 sm:h-[4.5rem] sm:gap-4 sm:px-6 md:h-20 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-x-4">
           <a
             href="#topo"
@@ -116,6 +140,9 @@ export function Header() {
             <img
               src="/brand/shiver-logo.png"
               alt="Shiver Broker"
+              width={224}
+              height={56}
+              decoding="async"
               className="h-9 w-auto max-w-full object-contain object-left sm:h-10 sm:max-w-[11rem] md:h-12 lg:h-14"
             />
           </a>
@@ -128,7 +155,7 @@ export function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                className="rounded-lg px-3 py-2 font-sans text-sm font-semibold tracking-wide text-white/90 transition-colors duration-200 hover:bg-white/5 hover:text-[#4DA3FF] lg:px-4 lg:text-[0.95rem]"
+                className="rounded-lg px-3 py-2 font-sans text-sm font-semibold tracking-wide text-[#9eb4cc] transition-colors duration-200 hover:bg-[#4DA3FF]/10 hover:text-[#4DA3FF] lg:px-4 lg:text-[0.95rem]"
               >
                 {link.label}
               </a>
@@ -147,7 +174,7 @@ export function Header() {
 
             <button
               type="button"
-              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/20 text-white transition-colors hover:bg-white/10 sm:h-10 sm:w-10 md:hidden"
+              className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#3d5a80]/70 text-[#9eb4cc] transition-colors hover:border-[#4DA3FF]/50 hover:bg-[#4DA3FF]/10 hover:text-[#4DA3FF] sm:h-10 sm:w-10 md:hidden"
               aria-expanded={menuOpen}
               aria-controls={menuId}
               aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
@@ -183,7 +210,7 @@ export function Header() {
         >
           <div className="overflow-hidden">
             <div
-              className={`border-t border-white/10 bg-[#050d16] px-4 pb-5 pt-4 transition-all duration-300 ease-out sm:px-6 ${
+              className={`border-t border-[#2a5a9a]/40 bg-[#0b1a2e] px-4 pb-5 pt-4 transition-all duration-300 ease-out sm:px-6 ${
                 menuOpen
                   ? 'translate-y-0 opacity-100'
                   : 'pointer-events-none -translate-y-2 opacity-0'
@@ -199,7 +226,7 @@ export function Header() {
                   Navegação
                 </p>
 
-                <ul className="flex flex-col divide-y divide-white/10 overflow-hidden rounded-xl border border-white/10 bg-white/[0.03]">
+                <ul className="flex flex-col divide-y divide-[#2a5a9a]/35 overflow-hidden rounded-xl border border-[#2a5a9a]/50 bg-[#07111d]/55">
                   {navLinks.map((link, index) => (
                     <li key={link.href}>
                       <a
@@ -207,7 +234,7 @@ export function Header() {
                         onClick={closeMenu}
                         tabIndex={menuOpen ? 0 : -1}
                         style={{ transitionDelay: menuOpen ? `${70 + index * 50}ms` : '0ms' }}
-                        className={`group flex items-center gap-4 px-4 py-4 transition-all duration-300 hover:bg-white/[0.05] ${
+                        className={`group flex items-center gap-4 px-4 py-4 transition-all duration-300 hover:bg-[#4DA3FF]/10 ${
                           menuOpen
                             ? 'translate-x-0 opacity-100'
                             : '-translate-x-2 opacity-0'
@@ -287,18 +314,37 @@ export function Header() {
         ref={setHeroSectionRef}
         className="relative isolate min-h-[calc(100dvh-4rem)] overflow-hidden sm:min-h-0"
       >
-        <video
-          ref={imageRef}
-          className="hero-parallax hero-media absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/hero/tubaroes-bg.jpg"
-          aria-hidden="true"
-        >
-          <source src="/hero/banner.mp4" type="video/mp4" />
-        </video>
+        {loadHeroVideo ? (
+          <video
+            ref={(node) => {
+              mediaRef.current = node
+            }}
+            className="hero-parallax hero-media absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/hero/tubaroes-bg.jpg"
+            aria-hidden="true"
+          >
+            <source src="/hero/banner.mp4" type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            ref={(node) => {
+              mediaRef.current = node
+            }}
+            src="/hero/tubaroes-bg.jpg"
+            alt=""
+            width={1600}
+            height={900}
+            decoding="async"
+            fetchPriority="high"
+            className="hero-parallax hero-media absolute inset-0 h-full w-full object-cover"
+            aria-hidden="true"
+          />
+        )}
         <div className="hero-veil absolute inset-0" aria-hidden="true" />
         <SectionEdgeGradients top={false} bottom color="#050d16" />
 

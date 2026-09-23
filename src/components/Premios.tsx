@@ -63,6 +63,10 @@ export function Premios() {
       <img
         src="/premios/section-bg.jpg"
         alt=""
+        width={1400}
+        height={900}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 h-full w-full object-cover object-center"
         aria-hidden="true"
       />
@@ -107,6 +111,10 @@ export function Premios() {
               <img
                 src={prize.src}
                 alt={prize.alt}
+                width={560}
+                height={747}
+                loading="lazy"
+                decoding="async"
                 className="h-auto w-full origin-bottom bg-transparent object-contain"
               />
             </article>
