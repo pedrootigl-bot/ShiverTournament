@@ -69,7 +69,7 @@ function CouponButton() {
 
     const timeoutId = window.setTimeout(() => {
       setCopied(false)
-    }, 1800)
+    }, 2200)
 
     return () => window.clearTimeout(timeoutId)
   }, [copied])
@@ -84,27 +84,42 @@ function CouponButton() {
   }
 
   return (
-    <div className="relative mt-3 inline-flex flex-col items-start">
-      <button
-        type="button"
-        onClick={handleCopy}
-        className="inline-flex cursor-pointer rounded-md border border-[#3aa0ff] px-3 py-1 text-xs font-bold tracking-wide text-[#3aa0ff] transition-colors duration-200 hover:bg-[#3aa0ff]/10"
-        aria-label={`Copiar cupom ${COUPON_CODE}`}
-      >
-        {COUPON_CODE}
-      </button>
-      <span
-        className={`absolute top-full mt-1.5 text-[0.7rem] font-medium text-[#6aa8ff] transition-opacity duration-200 ${
-          copied ? 'opacity-100' : 'pointer-events-none opacity-0'
-        }`}
-        role="status"
-        aria-live="polite"
-      >
-        Cupom copiado!
-      </span>
-    </div>
+    <button
+      type="button"
+      onClick={handleCopy}
+      className={`coupon-btn mt-3 inline-flex min-h-[1.85rem] min-w-[9.5rem] cursor-pointer items-center justify-center gap-1.5 rounded-md border px-3 py-1 text-xs font-bold tracking-wide transition-all duration-300 ease-out ${
+        copied
+          ? 'coupon-btn--copied border-[#3dcf7a] bg-[#3dcf7a] text-[#07111d]'
+          : 'border-[#3aa0ff] bg-transparent text-[#3aa0ff] hover:bg-[#3aa0ff]/10'
+      }`}
+      aria-label={copied ? 'Cupom copiado' : `Copiar cupom ${COUPON_CODE}`}
+      aria-live="polite"
+    >
+      {copied ? (
+        <>
+          <svg
+            className="coupon-btn__check h-3.5 w-3.5 shrink-0"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3.5 8.5 6.5 11.5 12.5 4.5"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <span>Cupom copiado!</span>
+        </>
+      ) : (
+        <span>{COUPON_CODE}</span>
+      )}
+    </button>
   )
 }
+
 
 const steps = [
   {

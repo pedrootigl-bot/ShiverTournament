@@ -1,3 +1,4 @@
+import { PARTICIPATE_URL } from '../constants'
 import { useInView } from '../hooks/useInView'
 import { SectionEdgeGradients } from './SectionEdgeGradients'
 
@@ -34,7 +35,9 @@ export function CtaBanner() {
           </p>
 
           <a
-            href="#como-participar"
+            href={PARTICIPATE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="cta-idle-pulse hover-lift inline-flex w-full max-w-xs shrink-0 items-center justify-center gap-2 rounded-lg bg-[#4DA3FF] px-5 py-3 font-sans text-xs font-bold uppercase tracking-wide text-[#07111d] transition-colors duration-200 hover:bg-[#6bb4ff] sm:w-auto sm:text-sm"
           >
             Quero participar

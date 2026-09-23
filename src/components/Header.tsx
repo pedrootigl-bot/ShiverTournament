@@ -1,4 +1,5 @@
 import { useEffect, useId, useState } from 'react'
+import { PARTICIPATE_URL } from '../constants'
 import { useHeroParallax } from '../hooks/useHeroParallax'
 import { useInView } from '../hooks/useInView'
 import { SectionEdgeGradients } from './SectionEdgeGradients'
@@ -136,7 +137,9 @@ export function Header() {
 
           <div className="ml-auto flex shrink-0 items-center gap-1.5 md:ml-0 md:justify-self-end sm:gap-2">
             <a
-              href="#como-participar"
+              href={PARTICIPATE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-lg bg-[#4DA3FF] px-3 py-2 text-[0.7rem] font-bold uppercase tracking-wide text-[#07111d] transition-colors duration-200 hover:bg-[#6bb4ff] sm:px-5 sm:py-2 sm:text-sm"
             >
               Participar
@@ -244,7 +247,9 @@ export function Header() {
                   }`}
                 >
                   <a
-                    href="#como-participar"
+                    href={PARTICIPATE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={closeMenu}
                     tabIndex={menuOpen ? 0 : -1}
                     className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#4DA3FF] px-4 py-3.5 font-sans text-sm font-bold uppercase tracking-[0.12em] text-[#07111d] transition-colors hover:bg-[#6bb4ff]"
@@ -340,7 +345,9 @@ export function Header() {
             </p>
             <div className={`reveal reveal-delay-3 ${inview}`}>
               <a
-                href="#como-participar"
+                href={PARTICIPATE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="cta-idle-pulse hover-lift inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-lg bg-[#4DA3FF] px-7 py-3.5 font-sans text-base font-semibold uppercase tracking-wide text-[#07111d] transition-colors duration-200 hover:bg-[#6bb4ff] sm:w-auto sm:px-6 sm:py-3 sm:text-sm"
               >
                 Participe agora
