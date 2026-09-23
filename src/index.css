@@ -132,6 +132,39 @@
   }
 }
 
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes reveal-up-strong {
+  from {
+    opacity: 0;
+    transform: translateY(52px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes cta-idle-pulse {
   0%,
   100% {
@@ -175,6 +208,26 @@
 
 .reveal.is-inview {
   animation: reveal-up 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.reveal-left {
+  opacity: 0;
+}
+
+.reveal-left.is-inview {
+  animation: reveal-left 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.reveal-right {
+  opacity: 0;
+}
+
+.reveal-right.is-inview {
+  animation: reveal-right 1.05s cubic-bezier(0.22, 1, 0.36, 1) 140ms forwards;
+}
+
+.reveal-y-strong.is-inview {
+  animation: reveal-up-strong 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .reveal-delay-1.is-inview {
@@ -432,7 +485,12 @@
   .prize-card.is-visible,
   .prize-card.is-pulsing,
   .reveal,
-  .reveal.is-inview {
+  .reveal.is-inview,
+  .reveal-left,
+  .reveal-left.is-inview,
+  .reveal-right,
+  .reveal-right.is-inview,
+  .reveal-y-strong.is-inview {
     opacity: 1;
     animation: none;
     transform: none;

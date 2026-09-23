@@ -164,7 +164,17 @@ function TopRankCard({
 
 export function Ranking() {
   const { ref, isInView } = useInView<HTMLElement>({ threshold: 0.12 })
+  const { ref: tableRef, isInView: tableInView } = useInView<HTMLDivElement>({
+    threshold: 0.28,
+    rootMargin: '0px 0px -12% 0px',
+  })
+  const { ref: asideRef, isInView: asideInView } = useInView<HTMLElement>({
+    threshold: 0.28,
+    rootMargin: '0px 0px -12% 0px',
+  })
   const inview = isInView ? 'is-inview' : ''
+  const tableVisible = tableInView ? 'is-inview' : ''
+  const asideVisible = asideInView ? 'is-inview' : ''
 
   return (
     <section
@@ -194,12 +204,12 @@ export function Ranking() {
 
       <div className="relative z-10 mx-auto max-w-6xl text-center">
         <p
-          className={`reveal mb-2 font-sans text-xs font-medium uppercase tracking-[0.22em] text-[#6aa8ff] sm:text-sm ${inview}`}
+          className={`reveal reveal-y-strong mb-2 font-sans text-xs font-medium uppercase tracking-[0.22em] text-[#6aa8ff] sm:text-sm ${inview}`}
         >
           Competição real
         </p>
         <h2
-          className={`reveal reveal-delay-1 font-display text-[clamp(2.15rem,8vw,4rem)] uppercase leading-none tracking-[0.02em] text-white ${inview}`}
+          className={`reveal reveal-y-strong reveal-delay-1 font-display text-[clamp(2.15rem,8vw,4rem)] uppercase leading-none tracking-[0.02em] text-white ${inview}`}
         >
           Ranking dos tubarões
         </h2>
@@ -218,7 +228,7 @@ export function Ranking() {
           return (
             <div
               key={trader.place}
-              className={`reveal w-[33%] max-w-[300px] ${delayClass} ${inview} ${
+              className={`reveal reveal-y-strong w-[33%] max-w-[300px] ${delayClass} ${inview} ${
                 trader.place === 1
                   ? 'order-2'
                   : trader.place === 2
@@ -236,11 +246,21 @@ export function Ranking() {
         })}
       </div>
 
+      {/* Separação sutil entre pódio e demais posições — só desktop/tablet */}
       <div
-        className={`reveal reveal-delay-5 relative z-10 mx-auto mt-8 w-full max-w-5xl sm:mt-10 md:mt-10 ${inview}`}
+        className="relative z-10 mx-auto mt-10 hidden max-w-4xl px-2 md:block md:mt-14"
+        aria-hidden="true"
       >
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-[#2a5a9a]/55 to-transparent" />
+        <div className="mx-auto mt-0 h-8 w-full max-w-xs bg-gradient-to-b from-[#4DA3FF]/08 to-transparent" />
+      </div>
+
+      <div className="relative z-10 mx-auto mt-8 w-full max-w-5xl sm:mt-10 md:mt-2">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-stretch lg:gap-5">
-          <div className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-[#2a4a6e]/60 bg-[#0a1220] shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+          <div
+            ref={tableRef}
+            className={`reveal-left min-w-0 flex-1 overflow-hidden rounded-2xl border border-[#2a4a6e]/60 bg-[#0a1220] shadow-[0_16px_40px_rgba(0,0,0,0.4)] ${tableVisible}`}
+          >
             <div className="px-3 pt-4 pb-2.5 sm:px-6 sm:pt-5 sm:pb-3">
               <h3 className="font-sans text-base font-bold text-white sm:text-lg">
                 <span className="md:hidden">Ranking completo</span>
@@ -357,7 +377,10 @@ export function Ranking() {
             </ul>
           </div>
 
-          <aside className="relative hidden min-h-[200px] w-full overflow-hidden rounded-2xl border border-[#2a4a6e]/60 bg-[#0a1220] shadow-[0_16px_40px_rgba(0,0,0,0.4)] lg:block lg:min-h-0 lg:w-[38%] lg:max-w-sm lg:shrink-0">
+          <aside
+            ref={asideRef}
+            className={`reveal-right relative hidden min-h-[200px] w-full overflow-hidden rounded-2xl border border-[#2a4a6e]/60 bg-[#0a1220] shadow-[0_16px_40px_rgba(0,0,0,0.4)] lg:block lg:min-h-0 lg:w-[38%] lg:max-w-sm lg:shrink-0 ${asideVisible}`}
+          >
             {rankingSideImage ? (
               <img
                 src={rankingSideImage}

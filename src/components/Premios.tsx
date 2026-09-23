@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, type AnimationEvent } from 'react'
+import { useState, type AnimationEvent } from 'react'
+import { useInView } from '../hooks/useInView'
 import { SectionEdgeGradients } from './SectionEdgeGradients'
 
 const prizes = [
@@ -23,28 +24,17 @@ const prizes = [
 ] as const
 
 export function Premios() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const { ref: titleRef, isInView: titleInView } = useInView<HTMLDivElement>({
+    threshold: 0.35,
+    rootMargin: '0px 0px -10% 0px',
+  })
+  const { ref: cardsRef, isInView: cardsInView } = useInView<HTMLDivElement>({
+    threshold: 0.25,
+    rootMargin: '0px 0px -12% 0px',
+  })
   const [pulsingPlaces, setPulsingPlaces] = useState<number[]>([])
 
-  useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.15 },
-    )
-
-    observer.observe(section)
-
-    return () => observer.disconnect()
-  }, [])
+  const titleVisible = titleInView ? 'is-inview' : ''
 
   function handleEnterEnd(event: AnimationEvent<HTMLElement>, place: number) {
     if (event.animationName !== 'prize-enter') return
@@ -56,7 +46,6 @@ export function Premios() {
 
   return (
     <section
-      ref={sectionRef}
       id="premios"
       className="relative scroll-mt-24 overflow-x-clip px-4 pb-14 pt-10 sm:scroll-mt-28 sm:px-6 sm:pb-20 sm:pt-14"
     >
@@ -80,24 +69,23 @@ export function Premios() {
       />
       <SectionEdgeGradients color="#050d16" />
 
-      <div className="relative z-20 mx-auto max-w-6xl text-center">
+      <div ref={titleRef} className="relative z-20 mx-auto max-w-6xl text-center">
         <p
-          className={`reveal mb-3 font-sans text-xs font-medium uppercase tracking-[0.22em] text-[#7eb6ff] sm:text-sm ${
-            isVisible ? 'is-inview' : ''
-          }`}
+          className={`reveal mb-3 font-sans text-xs font-medium uppercase tracking-[0.22em] text-[#7eb6ff] sm:text-sm ${titleVisible}`}
         >
           Top 3 traders
         </p>
         <h2
-          className={`reveal reveal-delay-1 font-display text-[clamp(2.15rem,8vw,4.5rem)] uppercase leading-none tracking-[0.02em] text-white ${
-            isVisible ? 'is-inview' : ''
-          }`}
+          className={`reveal reveal-delay-1 font-display text-[clamp(2.15rem,8vw,4.5rem)] uppercase leading-none tracking-[0.02em] text-white ${titleVisible}`}
         >
           Prêmios incríveis
         </h2>
       </div>
 
-      <div className="relative z-20 mx-auto mt-4 w-full max-w-5xl px-1 pt-5 sm:mt-8 sm:px-2 sm:pt-6 md:mt-10 md:pt-8">
+      <div
+        ref={cardsRef}
+        className="relative z-20 mx-auto mt-4 w-full max-w-5xl px-1 pt-5 sm:mt-8 sm:px-2 sm:pt-6 md:mt-10 md:pt-8"
+      >
         <div className="flex w-full -translate-y-2 items-end justify-center gap-1 sm:-translate-y-3 sm:gap-3 md:-translate-y-4 md:gap-5 lg:-translate-y-5">
           {prizes.map((prize) => (
             <article
@@ -106,7 +94,7 @@ export function Premios() {
               onAnimationEnd={(event) => handleEnterEnd(event, prize.place)}
               className={`prize-card flex min-w-0 max-w-[11rem] flex-col items-center sm:max-w-[15rem] md:max-w-[18rem] ${prize.widthClass} ${
                 prize.place === 1 ? '-translate-y-1 sm:-translate-y-2' : ''
-              } ${isVisible ? 'is-visible' : ''} ${pulsingPlaces.includes(prize.place) ? 'is-pulsing' : ''}`}
+              } ${cardsInView ? 'is-visible' : ''} ${pulsingPlaces.includes(prize.place) ? 'is-pulsing' : ''}`}
             >
               <img
                 src={prize.src}
