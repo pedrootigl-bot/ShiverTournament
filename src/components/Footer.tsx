@@ -1,10 +1,10 @@
+import { Link } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 import { SectionEdgeGradients } from './SectionEdgeGradients'
 
 const legalLinks = [
-  { href: '#', label: 'Termos de uso' },
-  { href: '#', label: 'Política de privacidade' },
-  { href: '#', label: 'Suporte' },
+  { href: '/termos-de-uso', label: 'Termos de uso' },
+  { href: '/politica-de-privacidade', label: 'Política de privacidade' },
 ] as const
 
 export function Footer() {
@@ -18,13 +18,17 @@ export function Footer() {
         className={`reveal relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 py-8 text-center sm:px-6 sm:py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:py-7 lg:text-left ${inview}`}
       >
         <div className="flex min-w-0 flex-col items-center gap-3 sm:gap-4 lg:items-start">
-          <a href="/" className="shrink-0" aria-label="Shiver Broker">
+          <Link
+            to="/#topo"
+            className="brand-logo shrink-0"
+            aria-label="Ir para o início"
+          >
             <img
               src="/brand/shiver-logo.png"
               alt="Shiver Broker"
               className="h-12 w-auto max-w-[12rem] object-contain sm:h-14 sm:max-w-[14rem] md:h-16 lg:h-20"
             />
-          </a>
+          </Link>
           <p className="max-w-xs font-sans text-sm text-[#8a9bb0]">
             Trading com mais oportunidades.
           </p>
@@ -35,13 +39,9 @@ export function Footer() {
           aria-label="Links legais"
         >
           {legalLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="font-sans text-sm text-[#9aabbf] transition-colors duration-200 hover:text-white hover:underline"
-            >
+            <Link key={link.label} to={link.href} className="footer-legal-link">
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 

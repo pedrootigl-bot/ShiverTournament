@@ -11,7 +11,7 @@ function canUseParallax(): boolean {
 /** Parallax leve no Y do fundo do hero (desktop + motion ok). */
 export function useHeroParallax() {
   const sectionRef = useRef<HTMLDivElement | null>(null)
-  const imageRef = useRef<HTMLImageElement | HTMLVideoElement | null>(null)
+  const imageRef = useRef<HTMLVideoElement | null>(null)
 
   useEffect(() => {
     if (!canUseParallax()) return

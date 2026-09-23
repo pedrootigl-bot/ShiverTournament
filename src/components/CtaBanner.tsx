@@ -22,12 +22,17 @@ export function CtaBanner() {
             boxShadow: '0 0 16px rgba(77, 163, 255, 0.2)',
           }}
         >
-          <img
-            src="/brand/shiver-logo.png"
-            alt="Shiver Broker"
-            className="h-12 w-auto max-w-[12rem] shrink-0 object-contain sm:h-14 sm:max-w-[14rem] md:h-16 lg:h-20"
-          />
-
+          <a
+            href="#topo"
+            className="brand-logo shrink-0"
+            aria-label="Ir para o início"
+          >
+            <img
+              src="/brand/shiver-logo.png"
+              alt="Shiver Broker"
+              className="h-12 w-auto max-w-[12rem] object-contain sm:h-14 sm:max-w-[14rem] md:h-16 lg:h-20"
+            />
+          </a>
           <p className="min-w-0 flex-1 text-center font-sans text-sm font-semibold leading-snug text-white sm:text-base md:text-left md:text-lg">
             Entre agora, suba no ranking e conquiste
             <br className="hidden sm:block" />{' '}

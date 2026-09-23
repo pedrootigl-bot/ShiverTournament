@@ -109,9 +109,9 @@ export function Header() {
       <div className="fixed inset-x-0 top-0 z-50 overflow-x-clip border-b border-white/15 bg-[#07111d]/85 backdrop-blur-md">
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-2 px-3 sm:h-[4.5rem] sm:gap-4 sm:px-6 md:h-20 md:grid md:grid-cols-[1fr_auto_1fr] md:gap-x-4">
           <a
-            href="/"
-            className="min-w-0 max-w-[42%] shrink md:max-w-none md:justify-self-start"
-            aria-label="Shiver Broker"
+            href="#topo"
+            className="brand-logo min-w-0 max-w-[42%] shrink md:max-w-none md:justify-self-start"
+            aria-label="Ir para o início"
           >
             <img
               src="/brand/shiver-logo.png"
@@ -283,6 +283,7 @@ export function Header() {
       <div className="h-16 sm:h-[4.5rem] md:h-20" aria-hidden="true" />
 
       <div
+        id="topo"
         ref={setHeroSectionRef}
         className="relative isolate min-h-[calc(100dvh-4rem)] overflow-hidden sm:min-h-0"
       >
