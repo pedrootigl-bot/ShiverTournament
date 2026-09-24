@@ -1,5 +1,6 @@
 import { PARTICIPATE_URL } from '../constants'
 import { useInView } from '../hooks/useInView'
+import { publicUrl } from '../lib/publicUrl'
 import { SectionEdgeGradients } from './SectionEdgeGradients'
 
 export function CtaBanner() {
@@ -28,7 +29,7 @@ export function CtaBanner() {
             aria-label="Ir para o início"
           >
             <img
-              src="/brand/shiver-logo.png"
+              src={publicUrl('/brand/shiver-logo.png')}
               alt="Shiver Broker"
               width={224}
               height={56}

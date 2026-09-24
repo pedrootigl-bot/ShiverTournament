@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
+import { publicUrl } from '../lib/publicUrl'
 import { SectionEdgeGradients } from './SectionEdgeGradients'
 
 const legalLinks = [
@@ -24,7 +25,7 @@ export function Footer() {
             aria-label="Ir para o início"
           >
             <img
-              src="/brand/shiver-logo.png"
+              src={publicUrl('/brand/shiver-logo.png')}
               alt="Shiver Broker"
               width={224}
               height={56}

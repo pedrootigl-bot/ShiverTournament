@@ -3,6 +3,7 @@ import { PARTICIPATE_URL } from '../constants'
 import { useHeroParallax } from '../hooks/useHeroParallax'
 import { useInView } from '../hooks/useInView'
 import { shouldAvoidHeavyMedia } from '../lib/network'
+import { publicUrl } from '../lib/publicUrl'
 import { SectionEdgeGradients } from './SectionEdgeGradients'
 
 const navLinks = [
@@ -138,7 +139,7 @@ export function Header() {
             aria-label="Ir para o início"
           >
             <img
-              src="/brand/shiver-logo.png"
+              src={publicUrl('/brand/shiver-logo.png')}
               alt="Shiver Broker"
               width={224}
               height={56}
@@ -325,17 +326,17 @@ export function Header() {
             loop
             playsInline
             preload="metadata"
-            poster="/hero/tubaroes-bg.jpg"
+            poster={publicUrl('/hero/tubaroes-bg.jpg')}
             aria-hidden="true"
           >
-            <source src="/hero/banner.mp4" type="video/mp4" />
+            <source src={publicUrl('/hero/banner.mp4')} type="video/mp4" />
           </video>
         ) : (
           <img
             ref={(node) => {
               mediaRef.current = node
             }}
-            src="/hero/tubaroes-bg.jpg"
+            src={publicUrl('/hero/tubaroes-bg.jpg')}
             alt=""
             width={1600}
             height={900}

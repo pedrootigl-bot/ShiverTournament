@@ -213,14 +213,14 @@ function ParticiparStep({
   return (
     <div
       ref={ref}
-      className={`reveal ${isMdUp ? delayClass : ''} ${show ? 'is-inview' : ''}`}
+      className={`reveal h-full ${isMdUp ? delayClass : ''} ${show ? 'is-inview' : ''}`}
     >
-      <article className="hover-lift relative rounded-2xl border border-[#2a5a9a]/80 bg-[#0b1a2e] px-4 pb-6 pt-10 sm:px-5">
+      <article className="hover-lift relative flex h-full min-h-[9.5rem] flex-col justify-center rounded-2xl border border-[#2a5a9a]/80 bg-[#0b1a2e] px-4 pb-6 pt-10 sm:min-h-[10.5rem] sm:px-5">
         <span className="absolute left-1/2 top-0 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#3aa0ff] text-sm font-extrabold text-[#07111d]">
           {step.number}
         </span>
 
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex flex-1 items-center gap-3 sm:gap-4">
           <div className="flex shrink-0 items-center justify-center [&_svg]:h-9 [&_svg]:w-9 sm:[&_svg]:h-10 sm:[&_svg]:w-10">
             {step.icon}
           </div>
@@ -270,7 +270,7 @@ export function ComoParticipar() {
         </h2>
       </div>
 
-      <div className="relative z-10 mx-auto mt-10 grid max-w-5xl gap-8 sm:mt-14 md:mt-16 md:grid-cols-3 md:gap-5 lg:gap-6">
+      <div className="relative z-10 mx-auto mt-10 grid max-w-5xl items-stretch gap-8 sm:mt-14 md:mt-16 md:grid-cols-3 md:gap-5 lg:gap-6">
         {steps.map((step, index) => (
           <ParticiparStep
             key={step.number}

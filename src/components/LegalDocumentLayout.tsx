@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { publicUrl } from '../lib/publicUrl'
 import { Footer } from './Footer'
 
 type LegalDocumentLayoutProps = {
@@ -15,7 +16,7 @@ export function LegalDocumentLayout({ title, subtitle, children }: LegalDocument
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-6 md:h-20">
           <Link to="/#topo" className="brand-logo" aria-label="Voltar ao início">
             <img
-              src="/brand/shiver-logo.png"
+              src={publicUrl('/brand/shiver-logo.png')}
               alt="Shiver Broker"
               className="h-9 w-auto max-w-[11rem] object-contain sm:h-10 md:h-12"
             />

@@ -1,4 +1,5 @@
 import { useInView } from '../hooks/useInView'
+import { publicUrl } from '../lib/publicUrl'
 import { SectionEdgeGradients } from './SectionEdgeGradients'
 
 type Place = 1 | 2 | 3
@@ -11,25 +12,25 @@ type RankCard = {
 }
 
 const ranking: RankCard[] = [
-  { place: 2, name: 'Lucas Ribeiro', points: '45.300 pts', avatar: '/avatars/lucas.png' },
-  { place: 1, name: 'Pedro Mendes', points: '48.520 pts', avatar: '/avatars/pedro.png' },
-  { place: 3, name: 'Amanda Silva', points: '41.980 pts', avatar: '/avatars/amanda.png' },
+  { place: 2, name: 'Lucas Ribeiro', points: '45.300 pts', avatar: publicUrl('/avatars/lucas.png') },
+  { place: 1, name: 'Pedro Mendes', points: '48.520 pts', avatar: publicUrl('/avatars/pedro.png') },
+  { place: 3, name: 'Amanda Silva', points: '41.980 pts', avatar: publicUrl('/avatars/amanda.png') },
 ]
 
 const rankingByPlace = [...ranking].sort((a, b) => a.place - b.place)
 
 const otherPositions = [
-  { place: 4, name: 'Rafael Teixeira', points: '38.740', avatar: '/avatars/rafael.png' },
-  { place: 5, name: 'Camila Vieira', points: '36.210', avatar: '/avatars/camila.png' },
-  { place: 6, name: 'Bruno Klein', points: '34.890', avatar: '/avatars/bruno.png' },
-  { place: 7, name: 'Fernanda Lopes', points: '32.450', avatar: '/avatars/fernanda.png' },
-  { place: 8, name: 'Diego Nogueira', points: '30.120', avatar: '/avatars/diego.png' },
-  { place: 9, name: 'Juliana Prado', points: '28.670', avatar: '/avatars/juliana.png' },
-  { place: 10, name: 'Marcos Henrique', points: '26.340', avatar: '/avatars/marcos.png' },
+  { place: 4, name: 'Rafael Teixeira', points: '38.740', avatar: publicUrl('/avatars/rafael.png') },
+  { place: 5, name: 'Camila Vieira', points: '36.210', avatar: publicUrl('/avatars/camila.png') },
+  { place: 6, name: 'Bruno Klein', points: '34.890', avatar: publicUrl('/avatars/bruno.png') },
+  { place: 7, name: 'Fernanda Lopes', points: '32.450', avatar: publicUrl('/avatars/fernanda.png') },
+  { place: 8, name: 'Diego Nogueira', points: '30.120', avatar: publicUrl('/avatars/diego.png') },
+  { place: 9, name: 'Juliana Prado', points: '28.670', avatar: publicUrl('/avatars/juliana.png') },
+  { place: 10, name: 'Marcos Henrique', points: '26.340', avatar: publicUrl('/avatars/marcos.png') },
 ] as const
 
 /** Imagem de destaque ao lado da tabela */
-const rankingSideImage: string | null = '/ranking/tubaroes.jpg'
+const rankingSideImage: string | null = publicUrl('/ranking/tubaroes.jpg')
 
 const placeTheme: Record<
   Place,
@@ -183,7 +184,7 @@ export function Ranking() {
       className="relative scroll-mt-24 overflow-x-clip px-4 pb-6 pt-14 sm:scroll-mt-28 sm:px-6 sm:pb-8 sm:pt-24"
     >
       <img
-        src="/ranking/section-bg.jpg"
+        src={publicUrl('/ranking/section-bg.jpg')}
         alt=""
         width={1400}
         height={900}

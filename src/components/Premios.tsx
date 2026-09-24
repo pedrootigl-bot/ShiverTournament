@@ -1,23 +1,24 @@
 import { useState, type AnimationEvent } from 'react'
 import { useInView } from '../hooks/useInView'
+import { publicUrl } from '../lib/publicUrl'
 import { SectionEdgeGradients } from './SectionEdgeGradients'
 
 const prizes = [
   {
     place: 2,
-    src: '/premios/2-lugar.png',
+    src: publicUrl('/premios/2-lugar.png'),
     alt: '2º Lugar — R$10 mil reais',
     widthClass: 'basis-0 grow-[0.95]',
   },
   {
     place: 1,
-    src: '/premios/1-lugar.png',
+    src: publicUrl('/premios/1-lugar.png'),
     alt: '1º Lugar — Viagem internacional all inclusive para 2 pessoas',
     widthClass: 'basis-0 grow',
   },
   {
     place: 3,
-    src: '/premios/3-lugar.png',
+    src: publicUrl('/premios/3-lugar.png'),
     alt: '3º Lugar — R$4 mil reais',
     widthClass: 'basis-0 grow-[0.9]',
   },
@@ -50,7 +51,7 @@ export function Premios() {
       className="relative scroll-mt-24 overflow-x-clip px-4 pb-14 pt-10 sm:scroll-mt-28 sm:px-6 sm:pb-20 sm:pt-14"
     >
       <img
-        src="/premios/section-bg.jpg"
+        src={publicUrl('/premios/section-bg.jpg')}
         alt=""
         width={1400}
         height={900}
